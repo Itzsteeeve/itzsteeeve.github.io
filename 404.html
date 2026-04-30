@@ -49,7 +49,7 @@
   @keyframes blink { 50% { opacity: 0; } }
 </style>
 </head>
-<body>
+<body style="--glitch:1">
 <div class="bg-grid"></div>
 <div class="err">
   <span class="err-corner tl">+</span>
@@ -66,7 +66,7 @@
   <h1>4<span class="glitch-target" data-text="0">0</span>4</h1>
   <p>// požadovaný resource neexistuje. možná byl smazán, přesunut, nebo nikdy neexistoval.</p>
 
-  <pre><span class="ok">$</span> curl -I https://portfolio.dev<span id="err-path">/...</span>
+  <pre><span class="ok">$</span> curl -I https://stiv.web<span id="err-path">/...</span>
 HTTP/2 <span class="err-line">404 NOT_FOUND</span>
 content-type: text/plain
 x-trace-id: <span id="err-trace">a3f7-bc92-...</span>
@@ -74,7 +74,6 @@ x-suggestion: <span class="ok">try the home page →</span></pre>
 
   <div class="err-actions">
     <a href="index.html" class="err-btn primary">[←] zpět_domů</a>
-    <a href="index.html#projects" class="err-btn">projekty</a>
     <a href="index.html#cool" class="err-btn">lab</a>
   </div>
 </div>

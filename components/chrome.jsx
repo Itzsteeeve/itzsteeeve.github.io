@@ -47,15 +47,28 @@ function Loader({ onDone }) {
 // NAV
 // =====================================================
 function Nav({ theme, onToggleTheme }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <nav className="nav">
-      <a href="#home" className="nav-logo">
+    <nav className={`nav ${menuOpen ? 'is-open' : ''}`}>
+      <a href="#home" className="nav-logo" onClick={closeMenu}>
         <span className="nav-logo-dot"></span>
         <span>~/stiv</span>
       </a>
-      <div className="nav-links">
-        <a href="#home" className="nav-link">HOME</a>
-        <a href="#cool" className="nav-link">LAB</a>
+      <div className={`nav-links ${menuOpen ? 'is-open' : ''}`}>
+        <a href="#home" className="nav-link" onClick={closeMenu}>HOME</a>
+        <a href="#cool" className="nav-link" onClick={closeMenu}>LAB</a>
       </div>
       <div className="nav-right">
         <div className="nav-theme-switch">
@@ -85,6 +98,15 @@ function Nav({ theme, onToggleTheme }) {
             </div>
           </label>
         </div>
+        <button
+          className={`nav-burger ${menuOpen ? 'is-open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menu"
+          aria-expanded={menuOpen}
+        >
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </nav>
   );

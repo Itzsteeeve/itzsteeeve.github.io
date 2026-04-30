@@ -13,11 +13,7 @@ const PROJECTS = [
 ];
 
 function Projects() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const id = setTimeout(() => setLoaded(true), 1100);
-    return () => clearTimeout(id);
-  }, []);
+  const [loaded] = useState(true);
 
   return (
     <section className="projects" id="projects" data-screen-label="02 Projects">
