@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 // not_found</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<style>
+  body { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+  .err {
+    max-width: 720px; width: 100%; position: relative;
+    padding: 32px; border: 1px solid var(--border-strong);
+    background: var(--bg-card); font-family: var(--font-mono);
+  }
+  .err-corner { position: absolute; font-size: 12px; color: var(--fg-muted); }
+  .err-corner.tl { top: -8px; left: -8px; } .err-corner.tr { top: -8px; right: -8px; }
+  .err-corner.bl { bottom: -8px; left: -8px; } .err-corner.br { bottom: -8px; right: -8px; }
+  .err-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--fg-muted); margin-bottom: 16px; display: flex; gap: 16px; align-items: center; }
+  .err-tag-bar { width: 24px; height: 1px; background: var(--accent); }
+  .err h1 {
+    font-size: clamp(80px, 18vw, 200px); font-family: var(--font-mono);
+    line-height: 0.9; letter-spacing: -0.04em; margin: 8px 0 16px;
+    text-transform: uppercase; font-weight: 500;
+  }
+  .err h1 span { color: var(--accent); }
+  .err p { font-size: 14px; color: var(--fg-muted); margin: 8px 0; }
+  .err pre {
+    background: var(--bg); border: 1px solid var(--border);
+    padding: 16px; margin: 24px 0; font-size: 12px;
+    color: var(--fg-muted); overflow-x: auto;
+  }
+  .err pre .ok { color: var(--accent); }
+  .err pre .err-line { color: #ff6b6b; }
+  .err-actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  .err-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border: 1px solid var(--border-strong);
+    color: var(--fg); font-family: var(--font-mono); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .err-btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .err-btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .err-btn.primary:hover { background: transparent; color: var(--fg); }
+  .blink { animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="err">
+  <span class="err-corner tl">+</span>
+  <span class="err-corner tr">+</span>
+  <span class="err-corner bl">+</span>
+  <span class="err-corner br">+</span>
+
+  <div class="err-tag">
+    <span class="err-tag-bar"></span>
+    <span>STATUS // 404</span>
+    <span class="blink">●</span>
+  </div>
+
+  <h1>4<span class="glitch-target" data-text="0">0</span>4</h1>
+  <p>// požadovaný resource neexistuje. možná byl smazán, přesunut, nebo nikdy neexistoval.</p>
+
+  <pre><span class="ok">$</span> curl -I https://portfolio.dev<span id="err-path">/...</span>
+HTTP/2 <span class="err-line">404 NOT_FOUND</span>
+content-type: text/plain
+x-trace-id: <span id="err-trace">a3f7-bc92-...</span>
+x-suggestion: <span class="ok">try the home page →</span></pre>
+
+  <div class="err-actions">
+    <a href="index.html" class="err-btn primary">[←] zpět_domů</a>
+    <a href="index.html#projects" class="err-btn">projekty</a>
+    <a href="index.html#cool" class="err-btn">lab</a>
+  </div>
+</div>
+
+<script>
+  // Show requested path
+  const p = document.getElementById('err-path');
+  if (p) p.textContent = window.location.pathname.replace(/\/$/, '') || '/';
+  // Random trace id
+  const t = document.getElementById('err-trace');
+  if (t) t.textContent = Array.from({length: 4}, () => Math.random().toString(16).slice(2, 6)).join('-');
+</script>
+</body>
+</html>
